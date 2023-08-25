@@ -9,10 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.6",
+    "@mui/material": "^5.14.6",
+    "axios": "^1.4.0",
+    "bcryptjs": "^2.4.3",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.4.5",
     "next": "13.4.19",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.4",
+    "react-hot-toast": "^2.4.1"
   }
 }
