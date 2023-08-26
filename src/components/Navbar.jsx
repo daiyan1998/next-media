@@ -12,7 +12,10 @@ import {
   Typography,
   styled,
 } from "@mui/material";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -46,6 +49,17 @@ const UserBox = styled(Box)(({ theme }) => ({
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const logout = async () => {
+    try {
+      await axios.get("/api/users/logout");
+      toast.success("Logout successfully");
+      router.push("/login");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -89,7 +103,7 @@ const Navbar = () => {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </AppBar>
   );
