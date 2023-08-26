@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 const StyledToolbar = styled(Toolbar)({
@@ -50,7 +50,7 @@ const UserBox = styled(Box)(({ theme }) => ({
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-
+  // Logout
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");
@@ -60,6 +60,16 @@ const Navbar = () => {
       toast.error(error.message);
     }
   };
+  // get user data
+  const [userData, setUserData] = useState("");
+  useEffect(() => {
+    const getUserDetails = async () => {
+      const res = await axios.get("/api/users/activeUser");
+      console.log(res.data.data);
+      setUserData(res.data.data);
+    };
+    getUserDetails();
+  }, []);
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -77,14 +87,12 @@ const Navbar = () => {
           <Badge badgeContent={4} color="error">
             <Notifications color="" />
           </Badge>
-          <Avatar
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGpEk_t6sN7FFh_gE8eq0kVzTmsaGng5mMYA&usqp=CAU"
-            onClick={() => setOpen(true)}
-          />
+          <Typography variant="span">{userData.username}</Typography>
+          <Avatar src={userData.photoUrl} onClick={() => setOpen(true)} />
         </Icons>
         <UserBox onClick={() => setOpen(true)}>
-          <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGpEk_t6sN7FFh_gE8eq0kVzTmsaGng5mMYA&usqp=CAU" />
-          <Typography variant="span">Rahat</Typography>
+          <Avatar src={userData.photoUrl} />
+          <Typography variant="span">{userData.username}</Typography>
         </UserBox>
       </StyledToolbar>
       <Menu
