@@ -1,10 +1,18 @@
 "use client";
+import SignupModal from "@/components/loginRegister/SignupModal";
 import { Lock } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 import { useForm } from "react-hook-form";
+import { Toaster, toast } from "react-hot-toast";
 
 const Login = () => {
+  const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       email: "",
@@ -15,10 +23,17 @@ const Login = () => {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
-  const onSubmit = (data) => {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    users.push(data);
-    localStorage.setItem("users", JSON.stringify(users));
+  const onSubmit = async (user) => {
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/users/login", user);
+      console.log("login success", response.data);
+      toast.success("Login success");
+      router.push("/");
+    } catch (error) {
+      toast.error(error.response.data.error);
+      setLoading(false);
+    }
   };
 
   return (
@@ -54,17 +69,16 @@ const Login = () => {
               error={!!errors.password}
               helperText={errors.password?.message}
             />
-            <Button type="submit" variant="contained">
-              Sign In
-            </Button>
+            <LoadingButton
+              type="submit"
+              loading={loading}
+              loadingPosition="center"
+              variant="contained"
+            >
+              Sign Up
+            </LoadingButton>
             <Stack>
-              <Typography
-                fontSize={15}
-                color={"primary"}
-                sx={{ textDecoration: "underline", cursor: "pointer" }}
-              >
-                Don&apos;t have an account? Sign Up
-              </Typography>
+              <SignupModal />
             </Stack>
           </Stack>
         </form>
