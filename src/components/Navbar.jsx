@@ -65,7 +65,6 @@ const Navbar = () => {
   useEffect(() => {
     const getUserDetails = async () => {
       const res = await axios.get("/api/users/activeUser");
-      console.log(res.data.data);
       setUserData(res.data.data);
     };
     getUserDetails();

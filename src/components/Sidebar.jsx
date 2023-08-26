@@ -77,6 +77,8 @@ const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  // TODO: add post
+  const [addPost, setAddPost] = useState("");
   return (
     <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position={"fixed"} display="flex" flexDirection="column">
@@ -131,6 +133,8 @@ const Sidebar = () => {
               <Typography variant="h6">Rahat</Typography>
             </UserBox>
             <TextField
+              onChange={(e) => setAddPost(e.target.value)}
+              value={addPost}
               sx={{ m: "20px 0" }}
               size=""
               placeholder="Write you post"

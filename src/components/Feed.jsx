@@ -1,13 +1,16 @@
-import { Box } from "@mui/material";
+"use client";
+import { Box, CircularProgress } from "@mui/material";
 import Post from "./Post";
+import { useGetPostsQuery } from "@/redux/services/postApiSlice";
 
 const Feed = () => {
+  const { data: posts, isLoading, isError } = useGetPostsQuery();
   return (
     <Box flex={4} p={2}>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {isLoading && <CircularProgress sx={{ display: "block", m: "auto" }} />}
+      {posts?.map((post) => (
+        <Post key={post._id} post={post} />
+      ))}
     </Box>
   );
 };
