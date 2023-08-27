@@ -1,4 +1,7 @@
 "use client";
+import { getDataFromToken } from "@/helpers/getDataFromToken";
+import { useAddPostMutation } from "@/redux/services/postApiSlice";
+import { useGetActiveUserQuery } from "@/redux/services/userApiSlice";
 import { DarkModeContext } from "@/theme/ThemeContext";
 import styled from "@emotion/styled";
 import {
@@ -73,12 +76,23 @@ const UserBox = styled(Box)(({ theme }) => ({
 
 const Sidebar = () => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
-  console.log(darkMode);
+  const [post, setPost] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   // TODO: add post
-  const [addPost, setAddPost] = useState("");
+  const { data: user } = useGetActiveUserQuery();
+  console.log(user);
+
+  const [addPost] = useAddPostMutation();
+
+  const addPostHandler = () => {
+    addPost({
+      userName: user.data.username,
+      userId: user.data._id,
+      content: post,
+    });
+  };
   return (
     <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position={"fixed"} display="flex" flexDirection="column">
@@ -133,8 +147,8 @@ const Sidebar = () => {
               <Typography variant="h6">Rahat</Typography>
             </UserBox>
             <TextField
-              onChange={(e) => setAddPost(e.target.value)}
-              value={addPost}
+              onChange={(e) => setPost(e.target.value)}
+              value={post}
               sx={{ m: "20px 0" }}
               size=""
               placeholder="Write you post"
@@ -143,7 +157,9 @@ const Sidebar = () => {
               rows={4}
               fullWidth
             ></TextField>
-            <Button variant="contained">Post</Button>
+            <Button onClick={addPostHandler} variant="contained">
+              Post
+            </Button>
           </Box>
         </StyledModal>
       </Box>

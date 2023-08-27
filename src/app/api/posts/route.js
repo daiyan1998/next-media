@@ -9,7 +9,7 @@ export async function POST(req) {
   try {
     const reqBody = await req.json();
     const { content, userId, userName } = reqBody;
-    console.log(content);
+    console.log(reqBody);
 
     const newPost = new Post({
       userId,
