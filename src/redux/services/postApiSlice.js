@@ -16,6 +16,13 @@ export const postApiSlice = apiSlice.injectEndpoints({
         body: post,
       }),
     }),
+    deletePost: builder.mutation({
+      query: (id) => ({
+        url: POSTS_URL,
+        method: "POST",
+        body: id,
+      }),
+    }),
   }),
 });
 

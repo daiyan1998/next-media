@@ -9,7 +9,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { Lock } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { LoadingButton } from "@mui/lab";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import axios from "axios";
 
 export default function SignupModal() {

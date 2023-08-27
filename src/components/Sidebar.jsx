@@ -1,9 +1,6 @@
 "use client";
-import { getDataFromToken } from "@/helpers/getDataFromToken";
-import { useAddPostMutation } from "@/redux/services/postApiSlice";
-import { useGetActiveUserQuery } from "@/redux/services/userApiSlice";
+
 import { DarkModeContext } from "@/theme/ThemeContext";
-import styled from "@emotion/styled";
 import {
   AccountBox,
   Article,
@@ -15,21 +12,17 @@ import {
   Storefront,
 } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
-  Button,
+  Chip,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Modal,
   Switch,
-  TextField,
-  ToggleButton,
-  Typography,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import CreatePost from "./shared/CreatePost";
 
 const sidebarLists = [
   {
@@ -62,48 +55,31 @@ const sidebarLists = [
   },
 ];
 
-const StyledModal = styled(Modal)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-});
-
-const UserBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
-}));
-
 const Sidebar = () => {
-  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
-  const [post, setPost] = useState("");
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  // TODO: add post
-  const { data: user } = useGetActiveUserQuery();
-  console.log(user);
+  const { toggleDarkMode } = useContext(DarkModeContext);
 
-  const [addPost] = useAddPostMutation();
+  // redux hooks
 
-  const addPostHandler = () => {
-    addPost({
-      userName: user.data.username,
-      userId: user.data._id,
-      content: post,
-    });
-  };
   return (
     <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position={"fixed"} display="flex" flexDirection="column">
         <List>
           {sidebarLists.map(({ title, icon }) => (
-            <ListItem key={title} disablePadding>
-              <ListItemButton component="a" href="#home">
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={title} />
-              </ListItemButton>
-            </ListItem>
+            <>
+              <ListItem key={title} disablePadding>
+                <ListItemButton component="a" href="#home">
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText primary={title} />
+                  <Chip
+                    size="small"
+                    label="working"
+                    color="error"
+                    variant="outlined"
+                    sx={{ ml: "10px" }}
+                  ></Chip>
+                </ListItemButton>
+              </ListItem>
+            </>
           ))}
           <ListItem disablePadding>
             <ListItemButton>
@@ -114,54 +90,7 @@ const Sidebar = () => {
             </ListItemButton>
           </ListItem>
         </List>
-        <Button onClick={handleOpen} variant="contained">
-          Post
-        </Button>
-        {/* Modal */}
-        <StyledModal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box
-            display="flex"
-            flexDirection="column"
-            width={400}
-            bgcolor="background.default"
-            color="text.primary"
-            p={3}
-            borderRadius={5}
-          >
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              color="grey"
-              textAlign="center"
-            >
-              Create a post
-            </Typography>
-            <UserBox onClick={() => setOpen(true)}>
-              <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGpEk_t6sN7FFh_gE8eq0kVzTmsaGng5mMYA&usqp=CAU" />
-              <Typography variant="h6">Rahat</Typography>
-            </UserBox>
-            <TextField
-              onChange={(e) => setPost(e.target.value)}
-              value={post}
-              sx={{ m: "20px 0" }}
-              size=""
-              placeholder="Write you post"
-              variant="standard"
-              multiline
-              rows={4}
-              fullWidth
-            ></TextField>
-            <Button onClick={addPostHandler} variant="contained">
-              Post
-            </Button>
-          </Box>
-        </StyledModal>
+        <CreatePost />
       </Box>
     </Box>
   );

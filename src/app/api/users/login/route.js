@@ -1,6 +1,6 @@
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 connect();
@@ -33,7 +33,7 @@ export async function POST(req) {
 
     // create token
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "30d",
     });
 
     const response = NextResponse.json({

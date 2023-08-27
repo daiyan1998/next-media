@@ -2,13 +2,13 @@
 import SignupModal from "@/components/loginRegister/SignupModal";
 import { Lock } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Stack, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 import { useForm } from "react-hook-form";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const [loading, setLoading] = React.useState(false);
@@ -37,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="center">
+    <Box display="flex" justifyContent="center" bgcolor="background.default">
       <Box display="flex" flexDirection="column" width={400} mt={15} gap={4}>
         <Box display="flex" justifyContent="center" flexDirection="column">
           <Lock

@@ -1,5 +1,5 @@
 import { Add } from "@mui/icons-material";
-import { Box, Fab, Modal, Tooltip, Typography } from "@mui/material";
+import { Fab, Tooltip } from "@mui/material";
 
 const AddPost = () => {
   return (

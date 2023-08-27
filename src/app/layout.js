@@ -1,10 +1,12 @@
+"use client";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Inter } from "next/font/google";
-// import { Provider } from "react-redux";
+// redux
 import { store } from "@/redux/store";
 import { Providers } from "@/redux/provider";
-
+// Theme
+import { ThemeContext } from "@/theme/ThemeContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -15,10 +17,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Toaster />
-        <Providers store={store}>{children}</Providers>
-      </body>
+      <ThemeContext>
+        <body
+          className={inter.className}
+          style={{ background: "background.default" }}
+        >
+          <Toaster />
+          <Providers store={store}>{children}</Providers>
+        </body>
+      </ThemeContext>
     </html>
   );
 }
