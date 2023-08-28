@@ -30,6 +30,7 @@ const CreatePost = () => {
   const fetchPosts = useGetPostsQuery();
   const addPostHandler = async () => {
     const { data } = await addPost({
+      //receiving server response
       userName: user.data.username,
       userId: user.data._id,
       content: post,

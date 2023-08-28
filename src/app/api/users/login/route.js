@@ -9,7 +9,6 @@ export async function POST(req) {
   try {
     const reqBody = await req.json();
     const { email, password } = reqBody;
-    console.log(reqBody);
 
     // Check if user exists
     const user = await User.findOne({ email });
@@ -19,7 +18,7 @@ export async function POST(req) {
 
     // Check if password is correct
     const validPassword = await bcryptjs.compare(password, user.password);
-    console.log(validPassword);
+
     if (!validPassword) {
       return NextResponse.json({ error: "Invalid password" }, { status: 400 });
     }

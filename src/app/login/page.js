@@ -26,8 +26,7 @@ const Login = () => {
   const onSubmit = async (user) => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/login", user);
-      console.log("login success", response.data);
+      await axios.post("/api/users/login", user);
       toast.success("Login success");
       router.push("/");
     } catch (error) {

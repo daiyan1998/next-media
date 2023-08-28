@@ -22,6 +22,7 @@ const Post = ({ post }) => {
     fetch.refetch();
     toast.success(data.message);
   };
+  console.log(post);
   return (
     <div>
       <Card sx={{ margin: 5 }}>

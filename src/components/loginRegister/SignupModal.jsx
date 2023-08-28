@@ -7,13 +7,11 @@ import { useForm } from "react-hook-form";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, Stack, Typography } from "@mui/material";
 import { Lock } from "@mui/icons-material";
-import { useRouter } from "next/navigation";
 import { LoadingButton } from "@mui/lab";
 import toast from "react-hot-toast";
 import axios from "axios";
 
 export default function SignupModal() {
-  const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   // success alert
 
@@ -44,7 +42,7 @@ export default function SignupModal() {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
-      console.log(response.data);
+
       toast.success(response.data.message);
     } catch (error) {
       toast.error(error.response.data.error);

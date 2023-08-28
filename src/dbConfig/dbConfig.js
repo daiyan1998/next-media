@@ -6,14 +6,11 @@ export async function connect() {
     const connection = mongoose.connection;
 
     connection.on("connected", () => {
-      console.log("Mongodb connected successfully");
-
-      connection.on("error", (err) => {
-        console.log("MongoDB connection error.Please try again" + err);
-      });
+      connection.on("error", () =>
+        console.log("somethig wrong in db connection")
+      );
     });
   } catch (error) {
-    console.log("Something went wrong");
     console.log(error);
   }
 }

@@ -11,7 +11,6 @@ export async function POST(req) {
   try {
     const reqBody = await req.json();
     const { content, userId, userName } = reqBody;
-    console.log(reqBody);
 
     const newPost = new Post({
       userId,
@@ -20,7 +19,6 @@ export async function POST(req) {
     });
 
     const createdPost = await newPost.save();
-    console.log(createdPost);
 
     return NextResponse.json({
       message: "Post created successfully",
@@ -47,12 +45,10 @@ export async function DELETE(req) {
   try {
     const reqBody = await req.json();
     const id = reqBody.id;
-    console.log(id);
+
     const objectId = new Types.ObjectId(id);
 
     const res = await Post.deleteOne({ _id: objectId });
-
-    console.log("Delete Response:", res);
 
     if (res.deletedCount === 0) {
       throw new Error("No matching document found for deletion.");
