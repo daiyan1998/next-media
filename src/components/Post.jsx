@@ -1,4 +1,8 @@
-import { Clear, Comment, MoreVert, ThumbUp } from "@mui/icons-material";
+import {
+  useDeletePostMutation,
+  useGetPostsQuery,
+} from "@/redux/services/postApiSlice";
+import { Clear, Comment, ThumbUp } from "@mui/icons-material";
 import {
   Avatar,
   Card,
@@ -9,8 +13,15 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
+import { toast } from "react-hot-toast";
 const Post = ({ post }) => {
-  console.log(post);
+  const [deletePost] = useDeletePostMutation();
+  const fetch = useGetPostsQuery();
+  const deletePostHandler = async () => {
+    const { data } = await deletePost({ id: post._id });
+    fetch.refetch();
+    toast.success(data.message);
+  };
   return (
     <div>
       <Card sx={{ margin: 5 }}>
@@ -23,7 +34,7 @@ const Post = ({ post }) => {
             ></Avatar>
           }
           action={
-            <IconButton aria-label="delete">
+            <IconButton onClick={deletePostHandler} aria-label="delete">
               <Clear />
             </IconButton>
           }

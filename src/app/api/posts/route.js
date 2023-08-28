@@ -47,7 +47,7 @@ export async function DELETE(req) {
   try {
     const reqBody = await req.json();
     const id = reqBody.id;
-
+    console.log(id);
     const objectId = new Types.ObjectId(id);
 
     const res = await Post.deleteOne({ _id: objectId });

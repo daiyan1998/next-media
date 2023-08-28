@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { toast } from "react-hot-toast";
 
 const CreatePost = () => {
   // States
@@ -28,12 +29,14 @@ const CreatePost = () => {
   const [addPost] = useAddPostMutation();
   const fetchPosts = useGetPostsQuery();
   const addPostHandler = async () => {
-    await addPost({
+    const { data } = await addPost({
       userName: user.data.username,
       userId: user.data._id,
       content: post,
     });
     fetchPosts.refetch();
+    toast.success(data.message);
+    handleClose();
   };
   return (
     <>

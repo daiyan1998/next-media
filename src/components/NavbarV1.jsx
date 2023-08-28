@@ -73,7 +73,7 @@ export default function NavBarV1() {
     }
   };
   // get user data
-  const [userData, setUserData] = React.useState("");
+  const [userData, setUserData] = React.useState([]);
   console.log(userData);
   React.useEffect(() => {
     const getUserDetails = async () => {
