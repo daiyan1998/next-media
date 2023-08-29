@@ -13,4 +13,4 @@ Discover the power of **Nexter**, a cutting-edge website meticulously crafted us
 
 We're committed to continuous improvement. Expect exciting updates as we refine **Nexter** with new features, further enhancing user interaction and enjoyment. Join us on this journey of innovation and exploration.
 
-Stay connected, stay engaged, and welcome to the [Nexter community](https://next-media-juss.vercel.app/login).
+Stay connected, stay engaged, and welcome to the [Nexter Website](https://next-media-juss.vercel.app/login).
